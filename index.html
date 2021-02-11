@@ -20,18 +20,18 @@
           <li 
             class="steps-item"
             :class="{'done' : activeIndex > idx, 'active': activeIndex === idx}"
-            v-for="(item,idx) in 5"
+            v-for="(item,idx) in steps.length"
             :key="item"
             @click="setActive(idx)"
           >
             <span>{{ item }}</span>
-            {{steps[idx--].title}}
+            {{ item.title }}
           </li>
         </ul>
         <div v-if="!isEnd">
-          <button class="btn" @click="prev" :disabled="activeIndex === 0">Назад</button>
-          <button class="btn primary" @click="nextOfFinish" v-if="activeIndex < 4">Вперед</button>
-          <button class="btn primary" @click="nextOfFinish" v-else>Закончить</button>
+          <button class="btn" @click="prev" :disabled="isDisabled">Назад</button>
+          <button class="btn primary" @click="nextOfFinish">{{ isLastStep ? 'Вперед' : 'Закончить' }}</button>
+          <!-- <button class="btn primary" @click="nextOfFinish" v-else>Закончить</button> -->
         </div>
         <div v-else>
           <button class="btn" @click="reset" >Начать заново</button>
